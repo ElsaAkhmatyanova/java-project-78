@@ -1,48 +1,40 @@
-# Detect OS (Windows or Unix)
-ifeq ($(OS),Windows_NT)
-    GRADLE_CMD = gradlew.bat
-    APP_PATH = build\install\app\bin\app.bat
-    SLASH = \\
-else
-    GRADLE_CMD = ./gradlew
-    APP_PATH = ./build/install/app/bin/app
-    SLASH = /
-endif
-
 .DEFAULT_GOAL := build-run
 .PHONY: build
 
 setup:
-	$(GRADLE_CMD) wrapper --gradle-version 8.5
+	./gradlew wrapper --gradle-version 8.5
 
 clean:
-	$(GRADLE_CMD) clean
+	./gradlew clean
 
 build:
-	$(GRADLE_CMD) clean build
+	./gradlew clean build
 
 install:
-	$(GRADLE_CMD) clean installDist
+	./gradlew clean installDist
 
 run-dist:
-	$(APP_PATH) $(ARGS)
+	./build/install/app/bin/app $(ARGS)
 
 run:
-	$(GRADLE_CMD) run
+	./gradlew run
 
 gendiff:
 	java -jar build/libs/app-1.0-SNAPSHOT-all.jar
 
 test:
-	$(GRADLE_CMD) test
+	./gradlew test
 
 report:
-	$(GRADLE_CMD) jacocoTestReport
+	./gradlew jacocoTestReport
 
 lint:
-	$(GRADLE_CMD) checkstyleMain
+	./gradlew checkstyleMain
 
 check-deps:
-	$(GRADLE_CMD) dependencyUpdates -Drevision=release
+	./gradlew dependencyUpdates -Drevision=release
+
 
 build-run: build run
+
+.PHONY: build
