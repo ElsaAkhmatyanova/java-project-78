@@ -2,12 +2,17 @@ package hexlet.code.schemas;
 
 import hexlet.code.schemas.checktype.StringCheckType;
 
+import java.util.Collection;
 import java.util.EnumMap;
+import java.util.function.Predicate;
 
-public class StringSchema extends BaseSchema<String, StringCheckType> {
+public class StringSchema extends BaseSchema<String> {
 
-    public StringSchema() {
-        super(new EnumMap<>(StringCheckType.class));
+    private final EnumMap<StringCheckType, Predicate<String>> checks = new EnumMap<>(StringCheckType.class);
+
+    @Override
+    protected Collection<Predicate<String>> getChecks() {
+        return checks.values();
     }
 
     public StringSchema required() {

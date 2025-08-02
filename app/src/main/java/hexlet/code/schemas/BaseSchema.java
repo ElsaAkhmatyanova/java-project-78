@@ -1,22 +1,19 @@
 package hexlet.code.schemas;
 
-import java.util.Map;
+import java.util.Collection;
 import java.util.function.Predicate;
 
-public abstract class BaseSchema<T, K extends Enum<K>> {
+public abstract class BaseSchema<T> {
 
-    protected final Map<K, Predicate<T>> checks;
+    protected abstract Collection<Predicate<T>> getChecks();
+
     protected boolean isRequired = false;
-
-    protected BaseSchema(Map<K, Predicate<T>> checks) {
-        this.checks = checks;
-    }
 
     public boolean isValid(T value) {
         if (!isRequired && value == null) {
             return true;
         }
-        for (Predicate<T> check : checks.values()) {
+        for (Predicate<T> check : getChecks()) {
             if (!check.test(value)) {
                 return false;
             }

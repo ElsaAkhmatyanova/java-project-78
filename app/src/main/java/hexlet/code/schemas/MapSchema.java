@@ -2,14 +2,19 @@ package hexlet.code.schemas;
 
 import hexlet.code.schemas.checktype.MapCheckType;
 
+import java.util.Collection;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Predicate;
 
-public class MapSchema extends BaseSchema<Map<?, ?>, MapCheckType> {
+public class MapSchema extends BaseSchema<Map<?, ?>> {
 
-    public MapSchema() {
-        super(new EnumMap<>(MapCheckType.class));
+    private final EnumMap<MapCheckType, Predicate<Map<?, ?>>> checks = new EnumMap<>(MapCheckType.class);
+
+    @Override
+    protected Collection<Predicate<Map<?, ?>>> getChecks() {
+        return checks.values();
     }
 
     public MapSchema required() {

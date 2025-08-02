@@ -2,13 +2,18 @@ package hexlet.code.schemas;
 
 import hexlet.code.schemas.checktype.NumberCheckType;
 
+import java.util.Collection;
 import java.util.EnumMap;
 import java.util.Objects;
+import java.util.function.Predicate;
 
-public class NumberSchema extends BaseSchema<Integer, NumberCheckType> {
+public class NumberSchema extends BaseSchema<Integer> {
 
-    public NumberSchema() {
-        super(new EnumMap<>(NumberCheckType.class));
+    private final EnumMap<NumberCheckType, Predicate<Integer>> checks = new EnumMap<>(NumberCheckType.class);
+
+    @Override
+    protected Collection<Predicate<Integer>> getChecks() {
+        return checks.values();
     }
 
     public NumberSchema required() {
