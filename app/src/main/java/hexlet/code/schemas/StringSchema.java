@@ -1,26 +1,28 @@
 package hexlet.code.schemas;
 
+import hexlet.code.schemas.checktype.StringCheckType;
+
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
 public class StringSchema {
-    private final Map<CheckType, Predicate<String>> checks = new EnumMap<>(CheckType.class);
+    private final Map<StringCheckType, Predicate<String>> checks = new EnumMap<>(StringCheckType.class);
     private boolean isRequired = false;
 
     public StringSchema required() {
         isRequired = true;
-        checks.put(CheckType.REQUIRED, s -> s != null && !s.isEmpty());
+        checks.put(StringCheckType.REQUIRED, s -> s != null && !s.isEmpty());
         return this;
     }
 
     public StringSchema minLength(int length) {
-        checks.put(CheckType.MIN_LENGTH, s -> s != null && s.length() >= length);
+        checks.put(StringCheckType.MIN_LENGTH, s -> s != null && s.length() >= length);
         return this;
     }
 
     public StringSchema contains(String substring) {
-        checks.put(CheckType.CONTAINS, s -> s != null && s.contains(substring));
+        checks.put(StringCheckType.CONTAINS, s -> s != null && s.contains(substring));
         return this;
     }
 
