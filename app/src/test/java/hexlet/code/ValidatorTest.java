@@ -1,39 +1,59 @@
 package hexlet.code;
 
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ValidatorTest {
+    @Test
+    void stringSchemaValidationTest() {
+        var v = new Validator();
+        var schema = v.string();
 
-    @Nested
-    class StringSchemaValidator {
+        assertTrue(schema.isValid(""));
+        assertTrue(schema.isValid(null));
 
-        @Test
-        void stringSchemaValidationTest() {
-            var v = new Validator();
-            var schema = v.string();
+        schema.required();
 
-            assertTrue(schema.isValid(""));
-            assertTrue(schema.isValid(null));
+        assertFalse(schema.isValid(null));
+        assertFalse(schema.isValid(""));
+        assertTrue(schema.isValid("what does the fox say"));
+        assertTrue(schema.isValid("hexlet"));
 
-            schema.required();
+        assertTrue(schema.contains("wh").isValid("what does the fox say"));
+        assertTrue(schema.contains("what").isValid("what does the fox say"));
+        assertFalse(schema.contains("whatthe").isValid("what does the fox say"));
 
-            assertFalse(schema.isValid(null));
-            assertFalse(schema.isValid(""));
-            assertTrue(schema.isValid("what does the fox say"));
-            assertTrue(schema.isValid("hexlet"));
+        assertFalse(schema.isValid("what does the fox say"));
 
-            assertTrue(schema.contains("wh").isValid("what does the fox say"));
-            assertTrue(schema.contains("what").isValid("what does the fox say"));
-            assertFalse(schema.contains("whatthe").isValid("what does the fox say"));
+        var schema1 = v.string();
+        assertTrue(schema1.minLength(10).minLength(4).isValid("Hexlet"));
+    }
 
-            assertFalse(schema.isValid("what does the fox say"));
+    @Test
+    void numberSchemaValidationTest() {
+        var v = new Validator();
+        var schema = v.number();
 
-            var schema1 = v.string();
-            assertTrue(schema1.minLength(10).minLength(4).isValid("Hexlet"));
-        }
+        assertTrue(schema.isValid(5));
+
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.positive().isValid(null));
+
+        schema.required();
+
+        assertFalse(schema.isValid(null));
+        assertTrue(schema.isValid(10));
+
+        assertFalse(schema.isValid(-10));
+        assertFalse(schema.isValid(0));
+
+        schema.range(5, 10);
+
+        assertTrue(schema.isValid(5));
+        assertTrue(schema.isValid(10));
+        assertFalse(schema.isValid(4));
+        assertFalse(schema.isValid(11));
     }
 }
