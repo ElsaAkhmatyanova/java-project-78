@@ -16,12 +16,21 @@ public class StringSchema extends BaseSchema<String, StringCheckType> {
         return this;
     }
 
-    public StringSchema minLength(int length) {
+    public StringSchema minLength(Integer length) {
+        if (length == null) {
+            throw new IllegalArgumentException("Argument cannot be null!");
+        }
+        if (length < 0) {
+            throw new IllegalArgumentException("Argument must be a positive number!");
+        }
         checks.put(StringCheckType.MIN_LENGTH, s -> s != null && s.length() >= length);
         return this;
     }
 
     public StringSchema contains(String substring) {
+        if (substring == null) {
+            throw new IllegalArgumentException("Argument cannot be null!");
+        }
         checks.put(StringCheckType.CONTAINS, s -> s != null && s.contains(substring));
         return this;
     }

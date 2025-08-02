@@ -23,7 +23,7 @@ public class MapSchema extends BaseSchema<Map<?, ?>, MapCheckType> {
             throw new IllegalArgumentException("Argument cannot be null!");
         }
         if (size < 0) {
-            throw new IllegalArgumentException("The number can only be positive!");
+            throw new IllegalArgumentException("Argument must be a positive number!");
         }
         checks.put(MapCheckType.SIZE, s -> s != null && size.equals(s.size()));
         return this;
