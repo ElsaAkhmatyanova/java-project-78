@@ -2,22 +2,11 @@ package hexlet.code.schemas;
 
 import hexlet.code.schemas.checktype.StringCheckType;
 
-import java.util.Collection;
-import java.util.EnumMap;
-import java.util.function.Predicate;
-
 public class StringSchema extends BaseSchema<String> {
-
-    private final EnumMap<StringCheckType, Predicate<String>> checks = new EnumMap<>(StringCheckType.class);
-
-    @Override
-    protected Collection<Predicate<String>> getChecks() {
-        return checks.values();
-    }
 
     public StringSchema required() {
         isRequired = true;
-        checks.put(StringCheckType.REQUIRED, s -> s != null && !s.isEmpty());
+        checks.put(StringCheckType.REQUIRED.name(), s -> s != null && !s.isEmpty());
         return this;
     }
 
@@ -28,7 +17,7 @@ public class StringSchema extends BaseSchema<String> {
         if (length < 0) {
             throw new IllegalArgumentException("Argument must be a positive number!");
         }
-        checks.put(StringCheckType.MIN_LENGTH, s -> s != null && s.length() >= length);
+        checks.put(StringCheckType.MIN_LENGTH.name(), s -> s != null && s.length() >= length);
         return this;
     }
 
@@ -36,7 +25,7 @@ public class StringSchema extends BaseSchema<String> {
         if (substring == null) {
             throw new IllegalArgumentException("Argument cannot be null!");
         }
-        checks.put(StringCheckType.CONTAINS, s -> s != null && s.contains(substring));
+        checks.put(StringCheckType.CONTAINS.name(), s -> s != null && s.contains(substring));
         return this;
     }
 }

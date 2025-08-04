@@ -1,11 +1,12 @@
 package hexlet.code.schemas;
 
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 
 public abstract class BaseSchema<T> {
 
-    protected abstract Collection<Predicate<T>> getChecks();
+    protected final Map<String, Predicate<T>> checks = new HashMap<>();
 
     protected boolean isRequired = false;
 
@@ -13,8 +14,8 @@ public abstract class BaseSchema<T> {
         if (!isRequired && value == null) {
             return true;
         }
-        for (Predicate<T> check : getChecks()) {
-            if (!check.test(value)) {
+        for (Map.Entry<String, Predicate<T>> entry : checks.entrySet()) {
+            if (!entry.getValue().test(value)) {
                 return false;
             }
         }

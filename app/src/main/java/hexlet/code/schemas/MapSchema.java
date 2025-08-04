@@ -2,26 +2,16 @@ package hexlet.code.schemas;
 
 import hexlet.code.schemas.checktype.MapCheckType;
 
-import java.util.Collection;
-import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Predicate;
 
 public class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
 
-    private final EnumMap<MapCheckType, Predicate<Map<K, V>>> checks = new EnumMap<>(MapCheckType.class);
-
     private Map<K, BaseSchema<V>> shapeSchemas;
-
-    @Override
-    protected Collection<Predicate<Map<K, V>>> getChecks() {
-        return checks.values();
-    }
 
     public MapSchema<K, V> required() {
         isRequired = true;
-        checks.put(MapCheckType.REQUIRED, Objects::nonNull);
+        checks.put(MapCheckType.REQUIRED.name(), Objects::nonNull);
         return this;
     }
 
@@ -32,7 +22,7 @@ public class MapSchema<K, V> extends BaseSchema<Map<K, V>> {
         if (size < 0) {
             throw new IllegalArgumentException("Argument must be a positive number!");
         }
-        checks.put(MapCheckType.SIZE, s -> s != null && size.equals(s.size()));
+        checks.put(MapCheckType.SIZE.name(), s -> s != null && size.equals(s.size()));
         return this;
     }
 
