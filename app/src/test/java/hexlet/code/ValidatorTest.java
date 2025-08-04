@@ -1,7 +1,6 @@
 package hexlet.code;
 
 import hexlet.code.schemas.BaseSchema;
-import hexlet.code.schemas.MapSchema;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -66,7 +65,7 @@ class ValidatorTest {
     @Test
     void mapSchemaValidationTest() {
         var v = new Validator();
-        MapSchema<String, String> schema = v.map();
+        var schema = v.map();
 
         assertTrue(schema.isValid(null));
 
@@ -88,8 +87,7 @@ class ValidatorTest {
     @Test
     void mapSchemaWithShapeTest() {
         var v = new Validator();
-
-        MapSchema<String, String> schema = v.map();
+        var schema = v.map();
 
         Map<String, BaseSchema<String>> schemas = new HashMap<>();
 
