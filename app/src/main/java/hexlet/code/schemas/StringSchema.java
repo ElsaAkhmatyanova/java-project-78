@@ -2,7 +2,7 @@ package hexlet.code.schemas;
 
 import hexlet.code.schemas.checktype.StringCheckType;
 
-public class StringSchema extends BaseSchema<String> {
+public final class StringSchema extends BaseSchema<String> {
 
     public StringSchema required() {
         isRequired = true;

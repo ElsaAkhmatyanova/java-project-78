@@ -5,7 +5,7 @@ import hexlet.code.schemas.checktype.MapCheckType;
 import java.util.Map;
 import java.util.Objects;
 
-public class MapSchema extends BaseSchema<Map<?, ?>> {
+public final class MapSchema extends BaseSchema<Map<?, ?>> {
 
     public MapSchema required() {
         isRequired = true;

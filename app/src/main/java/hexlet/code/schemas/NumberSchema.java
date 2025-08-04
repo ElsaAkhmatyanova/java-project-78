@@ -4,7 +4,7 @@ import hexlet.code.schemas.checktype.NumberCheckType;
 
 import java.util.Objects;
 
-public class NumberSchema extends BaseSchema<Integer> {
+public final class NumberSchema extends BaseSchema<Integer> {
 
     public NumberSchema required() {
         isRequired = true;
