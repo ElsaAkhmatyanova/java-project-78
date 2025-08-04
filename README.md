@@ -66,8 +66,8 @@ schema4.isValid(data); // true
 
 var schema5 = v.map();
 Map<String, BaseSchema<String>> schemas = new HashMap<>();
-schema5.put("firstName", v.string().required());
-schema5.put("lastName", v.string().required().minLength(2));
+schemas.put("firstName", v.string().required());
+schemas.put("lastName", v.string().required().minLength(2));
 schema5.shape(schemas);
 
 Map<String, String> human1 = new HashMap<>();
